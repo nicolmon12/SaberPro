@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Docente - Informe General</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <style>
+/* ════════════════════════════════════════════════════════════════
+   SABER PRO — DESIGN SYSTEM v2.0
+   Tema: Verde esmeralda premium · Glassmorphism · Moderno
+════════════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
+
+:root {
+  /* Paleta verde */
+  --g-950: #021a0e;
+  --g-900: #052e17;
+  --g-800: #0a4a25;
+  --g-700: #0e6030;
+  --g-600: #138040;
+  --g-500: #18a050;
+  --g-400: #2ec468;
+  --g-300: #6ddfa0;
+  --g-200: #adf0c8;
+  --g-100: #d6f7e6;
+  --g-50:  #edfaf3;
+
+  /* Acentos */
+  --emerald: #00d68f;
+  --emerald-glow: rgba(0, 214, 143, 0.25);
+  --mint: #e0fff2;
+
+  /* Neutros */
+  --white: #ffffff;
+  --ink: #071a10;
+  --muted: #4a7060;
+  --surface: #f4fbf7;
+  --surface-2: #e8f5ee;
+  --border: rgba(14, 96, 48, 0.15);
+
+  /* Sombras */
+  --shadow-sm: 0 1px 4px rgba(5, 46, 23, 0.10);
+  --shadow:    0 4px 16px rgba(5, 46, 23, 0.12);
+  --shadow-md: 0 8px 28px rgba(5, 46, 23, 0.16);
+  --shadow-lg: 0 16px 48px rgba(5, 46, 23, 0.20);
+  --shadow-glow: 0 0 32px rgba(0, 214, 143, 0.20);
+
+  /* Bordes */
+  --radius-sm: 10px;
+  --radius:    16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+
+  /* Tipografía */
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Plus Jakarta Sans', 'Inter', sans-serif;
+
+  /* Transiciones */
+  --transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── RESET ─────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--surface);
+  color: var(--ink);
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── SCROLLBAR ─────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--g-50); }
+::-webkit-scrollbar-thumb { background: var(--g-300); border-radius: 99px; }
+
+/* ═══════════════════════════════════════════════════════════════
+   SIDEBAR — diseño lateral premium con gradiente y glassmorphism
+══════════════════════════════════════════════════════════════ */
+.sidebar {
+  background: linear-gradient(175deg, var(--g-950) 0%, var(--g-900) 40%, var(--g-800) 100%) !important;
+  min-height: 100vh;
+  width: 100%;
+  padding: 0;
+  position: relative;
+  border-right: 1px solid rgba(0, 214, 143, 0.12);
+  box-shadow: 4px 0 24px rgba(2, 26, 14, 0.35);
+}
+
+/* Efecto de brillo sutil en la parte superior del sidebar */
+.sidebar::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 200px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(0,214,143,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Brand box */
+.sidebar .brand-box {
+  padding: 2rem 1.25rem 1.5rem;
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  margin-bottom: 0.75rem;
+  position: relative;
+}
+
+.sidebar .brand-icon {
+  font-size: 2.8rem;
+  display: block;
+  filter: drop-shadow(0 4px 12px rgba(0,214,143,0.5));
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+
+.sidebar .brand-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1rem;
+  color: var(--white);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.sidebar .brand-role {
+  font-size: 0.68rem;
+  color: var(--g-300);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 500;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+/* Nav links */
+.sidebar a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: rgba(255,255,255,0.70) !important;
+  text-decoration: none;
+  padding: 0.75rem 1.25rem;
+  margin: 0.15rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: var(--transition);
+  position: relative;
+  letter-spacing: 0.2px;
+}
+
+.sidebar a::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 20%; bottom: 20%;
+  width: 3px;
+  background: var(--emerald);
+  border-radius: 0 3px 3px 0;
+  transform: scaleY(0);
+  transition: var(--transition);
+}
+
+.sidebar a:hover {
+  background: rgba(255,255,255,0.09) !important;
+  color: var(--white) !important;
+  transform: translateX(3px);
+}
+
+.sidebar a:hover::before,
+.sidebar a.active::before { transform: scaleY(1); }
+
+.sidebar a.active {
+  background: rgba(0,214,143,0.15) !important;
+  color: var(--white) !important;
+  font-weight: 600;
+}
+
+.sidebar a i {
+  width: 20px;
+  text-align: center;
+  color: var(--g-300);
+  font-size: 0.9rem;
+}
+
+.sidebar a:hover i,
+.sidebar a.active i { color: var(--emerald); }
+
+/* Logout */
+.sidebar a.logout {
+  color: rgba(255, 130, 130, 0.85) !important;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  margin-top: 0.5rem;
+  padding-top: 0.9rem;
+}
+.sidebar a.logout i { color: rgba(255,130,130,0.85); }
+.sidebar a.logout:hover {
+  background: rgba(220, 50, 50, 0.12) !important;
+  color: #ff8a8a !important;
+}
+
+.sidebar h4, .sidebar h5,
+.sidebar .text-white { color: var(--g-300) !important; }
+
+/* ═══════════════════════════════════════════════════════════════
+   NAVBAR (vistas sin sidebar)
+══════════════════════════════════════════════════════════════ */
+.navbar,
+.navbar.bg-dark,
+.navbar.bg-primary,
+.navbar.bg-success,
+.navbar.bg-info,
+.navbar.bg-warning {
+  background: linear-gradient(135deg, var(--g-950) 0%, var(--g-800) 100%) !important;
+  border-bottom: 2px solid rgba(0,214,143,0.25);
+  padding: 1rem 1.5rem;
+  box-shadow: 0 4px 20px rgba(2,26,14,0.30);
+}
+
+.navbar-brand {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--white) !important;
+  letter-spacing: 0.5px;
+}
+
+.navbar .btn-outline-light {
+  border: 1.5px solid rgba(255,255,255,0.35);
+  color: var(--white);
+  border-radius: 20px;
+  padding: 0.4rem 1.1rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.navbar .btn-outline-light:hover {
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(0,214,143,0.6);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MAIN CONTENT AREA
+══════════════════════════════════════════════════════════════ */
+.col-md-10.p-4, main.main-content {
+  background: var(--surface);
+}
+
+/* Encabezado de página */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.75rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.page-header h2 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.6rem;
+  color: var(--g-900);
+  margin: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CARDS
+══════════════════════════════════════════════════════════════ */
+.card {
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius) !important;
+  box-shadow: var(--shadow) !important;
+  background: var(--white);
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+/* Stats cards flotantes */
+.card-stats,
+.card.card-stats {
+  border-radius: var(--radius) !important;
+  transition: transform 0.25s cubic-bezier(0.4,0,0.2,1), box-shadow 0.25s ease !important;
+}
+
+.card-stats:hover,
+.card.card-stats:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md) !important;
+}
+
+/* Card headers */
+.card-header {
+  border-bottom: 1px solid rgba(0,0,0,0.06) !important;
+  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  padding: 1rem 1.25rem;
+  letter-spacing: 0.2px;
+}
+
+.card-header.bg-primary,
+.card-header.bg-dark,
+.card-header.bg-success {
+  background: linear-gradient(135deg, var(--g-900), var(--g-700)) !important;
+  color: var(--white) !important;
+  border-bottom: none !important;
+}
+
+.card-header.bg-info     { background: linear-gradient(135deg, #0b5e63, #0d9488) !important; color: #fff !important; border-bottom: none !important; }
+.card-header.bg-warning  { background: linear-gradient(135deg, #92400e, #d97706) !important; color: #fff !important; border-bottom: none !important; }
+.card-header.bg-secondary{ background: linear-gradient(135deg, #334155, #475569) !important; color: #fff !important; border-bottom: none !important; }
+.card-header.bg-danger   { background: linear-gradient(135deg, #7f1d1d, #dc2626) !important; color: #fff !important; border-bottom: none !important; }
+
+/* Stat cards coloreadas — gradientes ricos */
+.card.bg-primary,
+.card.text-white.bg-primary {
+  background: linear-gradient(135deg, var(--g-800) 0%, var(--g-600) 100%) !important;
+  border: none !important;
+  box-shadow: var(--shadow-md), 0 0 0 1px rgba(0,214,143,0.15) !important;
+}
+
+.card.bg-success,
+.card.text-white.bg-success {
+  background: linear-gradient(135deg, var(--g-900) 0%, var(--g-700) 100%) !important;
+  border: none !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.card.bg-info,
+.card.text-white.bg-info {
+  background: linear-gradient(135deg, #134e4a 0%, #0f766e 100%) !important;
+  border: none !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.card.bg-warning,
+.card.text-white.bg-warning {
+  background: linear-gradient(135deg, #78350f 0%, #b45309 100%) !important;
+  color: #fff !important;
+  border: none !important;
+}
+
+.card.bg-danger,
+.card.text-white.bg-danger {
+  background: linear-gradient(135deg, #7f1d1d 0%, #b91c1c 100%) !important;
+  border: none !important;
+}
+
+/* Número grande en stat card */
+.card .display-4,
+.card .display-1 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BOTONES
+══════════════════════════════════════════════════════════════ */
+.btn {
+  border-radius: var(--radius-sm) !important;
+  font-weight: 600 !important;
+  font-size: 0.875rem;
+  letter-spacing: 0.2px;
+  transition: var(--transition) !important;
+  padding: 0.55rem 1.2rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--g-700), var(--g-500)) !important;
+  border: none !important;
+  color: var(--white) !important;
+  box-shadow: 0 2px 8px rgba(14,96,48,0.35) !important;
+}
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--g-900), var(--g-700)) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(14,96,48,0.40) !important;
+}
+
+.btn-success {
+  background: linear-gradient(135deg, var(--g-600), var(--g-400)) !important;
+  border: none !important;
+  color: var(--white) !important;
+  box-shadow: 0 2px 8px rgba(14,96,48,0.30) !important;
+}
+.btn-success:hover {
+  background: linear-gradient(135deg, var(--g-800), var(--g-600)) !important;
+  transform: translateY(-2px);
+}
+
+.btn-outline-primary {
+  color: var(--g-700) !important;
+  border: 1.5px solid var(--g-500) !important;
+  background: transparent !important;
+}
+.btn-outline-primary:hover {
+  background: var(--g-600) !important;
+  border-color: var(--g-600) !important;
+  color: var(--white) !important;
+  transform: translateY(-1px);
+}
+
+.btn-outline-success {
+  color: var(--g-700) !important;
+  border: 1.5px solid var(--g-400) !important;
+  background: transparent !important;
+}
+.btn-outline-success:hover {
+  background: var(--g-600) !important;
+  color: #fff !important;
+  transform: translateY(-1px);
+}
+
+.btn-warning  { background: linear-gradient(135deg,#92400e,#d97706) !important; border: none !important; color:#fff !important; }
+.btn-warning:hover { background: linear-gradient(135deg,#78350f,#b45309) !important; transform: translateY(-1px); }
+
+.btn-danger   { background: linear-gradient(135deg,#7f1d1d,#dc2626) !important; border: none !important; color:#fff !important; }
+.btn-danger:hover { transform: translateY(-1px); }
+
+.btn-info     { background: linear-gradient(135deg,#134e4a,#0f766e) !important; border: none !important; color:#fff !important; }
+.btn-info:hover { transform: translateY(-1px); }
+
+.btn-secondary{ background: linear-gradient(135deg,#334155,#475569) !important; border: none !important; color:#fff !important; }
+.btn-secondary:hover { transform: translateY(-1px); }
+
+.btn-outline-warning { color:#b45309 !important; border: 1.5px solid #d97706 !important; }
+.btn-outline-warning:hover { background:#d97706 !important; color:#fff !important; }
+
+.btn-outline-info { color:#0f766e !important; border: 1.5px solid #0f766e !important; }
+.btn-outline-info:hover { background:#0f766e !important; color:#fff !important; }
+
+.btn-outline-danger { color:#dc2626 !important; border: 1.5px solid #dc2626 !important; }
+.btn-outline-danger:hover { background:#dc2626 !important; color:#fff !important; }
+
+.btn-outline-secondary { color:#475569 !important; border: 1.5px solid #64748b !important; }
+.btn-outline-secondary:hover { background:#475569 !important; color:#fff !important; }
+
+.btn-outline-light { border: 1.5px solid rgba(255,255,255,0.45) !important; color:#fff !important; }
+.btn-outline-light:hover { background:rgba(255,255,255,0.12) !important; }
+
+/* ═══════════════════════════════════════════════════════════════
+   FORMULARIOS
+══════════════════════════════════════════════════════════════ */
+.form-control, .form-select {
+  border-radius: var(--radius-sm) !important;
+  border: 1.5px solid rgba(14,96,48,0.20) !important;
+  padding: 0.6rem 0.9rem;
+  font-size: 0.9rem;
+  background-color: var(--white);
+  transition: var(--transition);
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--g-500) !important;
+  box-shadow: 0 0 0 3px rgba(24,160,80,0.15) !important;
+  outline: none;
+}
+
+.form-label {
+  color: var(--g-800);
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-bottom: 0.4rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TABLAS
+══════════════════════════════════════════════════════════════ */
+.table {
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.875rem;
+}
+
+.table thead th {
+  background: linear-gradient(135deg, var(--g-900), var(--g-700)) !important;
+  color: var(--white) !important;
+  font-weight: 600;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 0.85rem 1rem;
+  border: none !important;
+  white-space: nowrap;
+}
+
+.table thead th:first-child { border-radius: 10px 0 0 10px; }
+.table thead th:last-child  { border-radius: 0 10px 10px 0; }
+
+.table tbody tr {
+  transition: background 0.15s;
+  border-bottom: 1px solid var(--border);
+}
+
+.table tbody tr:last-child { border-bottom: none; }
+
+.table tbody tr:hover { background: var(--g-50) !important; }
+
+.table-striped tbody tr:nth-of-type(odd) { background: rgba(24,160,80,0.04) !important; }
+.table-striped tbody tr:nth-of-type(odd):hover { background: var(--g-50) !important; }
+
+.table-bordered { border: 1px solid var(--border) !important; }
+.table-bordered td, .table-bordered th { border-color: var(--border) !important; }
+
+.table-secondary thead th,
+thead.table-secondary th {
+  background: linear-gradient(135deg, var(--g-800), var(--g-600)) !important;
+  color: #fff !important;
+}
+
+.table-success { background: rgba(24,160,80,0.08) !important; }
+.table-danger  { background: rgba(220,38,38,0.08) !important; }
+.table-warning { background: rgba(217,119,6,0.08) !important; }
+.table-info    { background: rgba(15,118,110,0.08) !important; }
+
+/* ═══════════════════════════════════════════════════════════════
+   BADGES
+══════════════════════════════════════════════════════════════ */
+.badge {
+  font-weight: 600;
+  font-size: 0.72rem;
+  padding: 0.3em 0.65em;
+  border-radius: 6px;
+  letter-spacing: 0.3px;
+}
+
+.badge.bg-primary   { background: var(--g-600) !important; }
+.badge.bg-success   { background: var(--g-700) !important; }
+.badge.bg-info      { background: #0f766e !important; }
+.badge.bg-dark      { background: var(--g-900) !important; }
+.badge.bg-secondary { background: #475569 !important; }
+.badge.bg-light     { background: var(--g-100) !important; color: var(--g-800) !important; }
+.badge.bg-warning   { background: #d97706 !important; color: #fff !important; }
+.badge.bg-danger    { background: #dc2626 !important; }
+
+/* ═══════════════════════════════════════════════════════════════
+   ALERTS
+══════════════════════════════════════════════════════════════ */
+.alert {
+  border-radius: var(--radius-sm) !important;
+  border: none !important;
+  padding: 0.9rem 1.1rem;
+  font-size: 0.875rem;
+}
+
+.alert-success  { background: var(--g-100) !important; color: var(--g-800) !important; border-left: 4px solid var(--g-500) !important; }
+.alert-info     { background: #ccfbf1 !important; color: #134e4a !important; border-left: 4px solid #14b8a6 !important; }
+.alert-warning  { background: #fef3c7 !important; color: #92400e !important; border-left: 4px solid #f59e0b !important; }
+.alert-danger   { background: #fee2e2 !important; color: #7f1d1d !important; border-left: 4px solid #ef4444 !important; }
+.alert-secondary{ background: var(--g-50) !important; color: var(--g-800) !important; border-left: 4px solid var(--g-300) !important; }
+
+/* ═══════════════════════════════════════════════════════════════
+   BG / TEXT UTILITIES
+══════════════════════════════════════════════════════════════ */
+.bg-primary   { background: var(--g-600) !important; }
+.bg-success   { background: var(--g-700) !important; }
+.bg-info      { background: #0f766e !important; }
+.bg-dark      { background: var(--g-900) !important; }
+.bg-secondary { background: #475569 !important; }
+
+.text-success { color: var(--g-600) !important; }
+.text-primary { color: var(--g-700) !important; }
+.text-muted   { color: var(--muted) !important; }
+
+.border-start.border-primary { border-color: var(--g-500) !important; }
+.border-start.border-success { border-color: var(--g-400) !important; }
+
+/* ═══════════════════════════════════════════════════════════════
+   LOGIN — pantalla de entrada premium
+══════════════════════════════════════════════════════════════ */
+body.login-body {
+  background: linear-gradient(145deg, var(--g-950) 0%, var(--g-900) 45%, #063d20 80%, #0a5a2e 100%) !important;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efecto fondo decorativo */
+body.login-body::before {
+  content: '';
+  position: fixed;
+  top: -30%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(0,214,143,0.12) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+body.login-body::after {
+  content: '';
+  position: fixed;
+  bottom: -20%;
+  left: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(14,96,48,0.25) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.login-card {
+  background: rgba(255,255,255,0.97) !important;
+  border-radius: var(--radius-xl) !important;
+  box-shadow: 0 32px 80px rgba(2,26,14,0.50), 0 0 0 1px rgba(0,214,143,0.20) !important;
+  border: none !important;
+  overflow: hidden;
+  position: relative;
+}
+
+.login-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--g-700), var(--emerald), var(--g-500));
+}
+
+body.login-body .card {
+  border-radius: var(--radius-xl) !important;
+  box-shadow: 0 32px 80px rgba(2,26,14,0.50), 0 0 0 1px rgba(0,214,143,0.20) !important;
+  border: none !important;
+  position: relative;
+}
+
+body.login-body .card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--g-700), var(--emerald), var(--g-500));
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+}
+
+body.login-body .btn-primary {
+  background: linear-gradient(135deg, var(--g-700), var(--emerald)) !important;
+  border: none !important;
+  padding: 0.85rem;
+  font-size: 1rem;
+  border-radius: var(--radius-sm) !important;
+  box-shadow: 0 4px 20px rgba(14,96,48,0.40) !important;
+  letter-spacing: 0.3px;
+}
+
+body.login-body .btn-primary:hover {
+  background: linear-gradient(135deg, var(--g-900), var(--g-600)) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(14,96,48,0.50) !important;
+}
+
+body.login-body .form-control {
+  border-radius: var(--radius-sm) !important;
+  padding: 0.8rem 1rem;
+  border: 1.5px solid rgba(14,96,48,0.20) !important;
+}
+
+.login-logo {
+  font-size: 3.5rem;
+  filter: drop-shadow(0 6px 16px rgba(0,214,143,0.50));
+  display: block;
+  line-height: 1;
+}
+
+.login-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--g-900);
+  font-size: 1.6rem;
+}
+
+.credenciales {
+  background: var(--g-50);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem;
+  font-size: 0.8rem;
+  border: 1px solid var(--g-200);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MISC
+══════════════════════════════════════════════════════════════ */
+hr { border-color: var(--border); opacity: 1; }
+
+.display-1, .display-4 {
+  font-family: var(--font-display);
+  font-weight: 900;
+}
+
+.fw-bold { font-weight: 700 !important; }
+
+a { color: var(--g-600); }
+a:hover { color: var(--g-800); }
+
+/* Quick-action buttons grandes */
+.btn-quick {
+  padding: 1.25rem !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  height: 100%;
+  min-height: 90px;
+}
+
+/* Progress bars */
+.progress {
+  border-radius: 99px;
+  background: var(--g-100);
+  height: 8px;
+}
+.progress-bar {
+  background: linear-gradient(90deg, var(--g-500), var(--emerald));
+  border-radius: 99px;
+}
+
+/* ── PRINT ─────────────────────────────────────────────────── */
+@media print {
+  .sidebar, .navbar, .btn { display: none !important; }
+  .col-md-10 { width: 100% !important; }
+}
+
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row g-0">
+            <div class="col-md-2 p-0 sidebar">
+                <div class="brand-box">
+                    <div class="brand-icon">📚</div>
+                    <div class="brand-title">SABER PRO</div>
+                    <div class="brand-role">Docente</div>
+                </div>
+                <a href="/docente/dashboard"><i class="fas fa-gauge-high"></i> Dashboard</a>
+                <a href="/docente/informe-general"><i class="fas fa-chart-bar"></i> Informe General</a>
+                <a href="/docente/informe-estudiantes"><i class="fas fa-user-graduate"></i> Informe Alumno</a>
+                <a href="/logout" class="logout"><i class="fas fa-right-from-bracket"></i> Cerrar Sesión</a>
+            </div>
+            <div class="col-md-10 p-4">
+                <h2><i class="fas fa-chart-bar me-2"></i>Informe General de Resultados</h2>
+
+                <!-- Filtro por facultad -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <form method="get" action="/docente/informe-general" class="row g-2 align-items-end">
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">Filtrar por Facultad</label>
+                                <select name="facultadId" class="form-select">
+                                    <option value="">Todas las facultades</option>
+                                    <option th:each="f : ${facultades}"
+                                            th:value="${f.id}"
+                                            th:text="${f.nombre}"
+                                            th:selected="${facultadFiltro != null and facultadFiltro == f.id}">
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-success w-100">
+                                    <i class="fas fa-filter me-1"></i> Filtrar
+                                </button>
+                            </div>
+                            <div class="col-md-2">
+                                <a href="/docente/informe-general" class="btn btn-outline-secondary w-100">Limpiar</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Tabla de resultados -->
+                <div class="card">
+                    <div class="card-header fw-bold">
+                        <i class="fas fa-table me-1"></i>
+                        Estudiantes y sus Resultados
+                        <span class="badge bg-secondary ms-2" th:text="${#lists.size(estudiantes)} + ' estudiantes'"></span>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Documento</th>
+                                        <th>Nombre</th>
+                                        <th>Facultad</th>
+                                        <th>Puntaje Total</th>
+                                        <th>Nivel</th>
+                                        <th>Com. Escrita</th>
+                                        <th>Raz. Cuantitativo</th>
+                                        <th>Lectura Crítica</th>
+                                        <th>Comp. Ciudadanas</th>
+                                        <th>Inglés</th>
+                                        <th>Detalle</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="e : ${estudiantes}">
+                                        <td th:text="${e.numeroDocumento}"></td>
+                                        <td th:text="${e.primerApellido + ' ' + e.primerNombre}"></td>
+                                        <td th:text="${e.facultad != null ? e.facultad.nombre : 'N/A'}"></td>
+                                        <th:block th:if="${e.resultados != null and !e.resultados.isEmpty()}">
+                                            <td th:text="${e.resultados[0].puntajeTotal}"></td>
+                                            <td>
+                                                <span class="badge"
+                                                      th:classappend="${e.resultados[0].puntajeNivel == 'ANULADO'} ? 'bg-danger' : 'bg-success'"
+                                                      th:text="${e.resultados[0].puntajeNivel}"></span>
+                                            </td>
+                                            <td th:text="${e.resultados[0].comunicacionEscrita}"></td>
+                                            <td th:text="${e.resultados[0].razonamientoCuantitativo}"></td>
+                                            <td th:text="${e.resultados[0].lecturaCritica}"></td>
+                                            <td th:text="${e.resultados[0].competenciasCiudadanas}"></td>
+                                            <td th:text="${e.resultados[0].ingles}"></td>
+                                        </th:block>
+                                        <th:block th:if="${e.resultados == null or e.resultados.isEmpty()}">
+                                            <td colspan="7" class="text-muted">Sin resultados</td>
+                                        </th:block>
+                                        <td>
+                                            <a th:href="@{/docente/informe-estudiantes(estudianteId=${e.id})}"
+                                               class="btn btn-sm btn-outline-success">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr th:if="${#lists.isEmpty(estudiantes)}">
+                                        <td colspan="12" class="text-center text-muted">No hay estudiantes.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

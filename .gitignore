@@ -1,0 +1,22 @@
+# Maven
+target/
+*.class
+*.jar
+*.war
+
+# IDE
+.classpath
+.project
+.settings/
+*.iml
+.idea/
+
+# Logs
+*.log
+logs/
+
+# Uploads (archivos subidos por usuarios)
+uploads/
+
+# Secrets (nunca subir)
+# application-secret.properties
