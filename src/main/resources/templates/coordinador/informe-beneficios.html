@@ -774,5 +774,96 @@ a:hover { color: var(--g-800); }
             </div>
         </div>
     </div>
+
+    <!-- ═══ TABLA ESTUDIANTES CON BENEFICIOS ═══ -->
+    <div class="container mt-4 mb-5">
+        <div class="card" style="border-radius:14px;overflow:hidden;box-shadow:0 4px 20px rgba(5,46,23,0.12);">
+            <div class="card-header" style="background:linear-gradient(135deg,#052e17,#0e6030);padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;">
+                <h5 style="color:#fff;margin:0;font-weight:700;"><i class="fas fa-medal me-2" style="color:#fbbf24;"></i> Estudiantes con Beneficios Obtenidos</h5>
+                <span th:if="${totalConBeneficio != null}" style="background:rgba(255,255,255,0.15);color:#fff;padding:0.3rem 0.8rem;border-radius:999px;font-size:0.8rem;font-weight:700;"
+                      th:text="${totalConBeneficio + ' estudiante' + (totalConBeneficio != 1 ? 's' : '')}">0 estudiantes</span>
+            </div>
+            <div class="card-body p-0">
+
+                <!-- Sin datos -->
+                <div th:if="${estudiantesConBeneficio == null or estudiantesConBeneficio.isEmpty()}"
+                     style="text-align:center;padding:3rem;color:#94a3b8;">
+                    <i class="fas fa-inbox" style="font-size:2.5rem;display:block;margin-bottom:0.75rem;"></i>
+                    Aún no hay estudiantes con beneficios registrados.
+                </div>
+
+                <!-- Tabla con datos -->
+                <div th:if="${estudiantesConBeneficio != null and !estudiantesConBeneficio.isEmpty()}"
+                     class="table-responsive">
+                    <table class="table table-striped mb-0">
+                        <thead style="background:linear-gradient(135deg,#0e6030,#138040);">
+                            <tr>
+                                <th style="color:#fff;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.5px;padding:0.75rem 1rem;">#</th>
+                                <th style="color:#fff;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.5px;padding:0.75rem 1rem;"><i class="fas fa-id-card me-1"></i> Documento</th>
+                                <th style="color:#fff;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.5px;padding:0.75rem 1rem;"><i class="fas fa-user me-1"></i> Nombre Completo</th>
+                                <th style="color:#fff;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.5px;padding:0.75rem 1rem;"><i class="fas fa-university me-1"></i> Programa</th>
+                                <th style="color:#fff;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.5px;padding:0.75rem 1rem;text-align:center;"><i class="fas fa-star me-1"></i> Puntaje Global</th>
+                                <th style="color:#fff;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.5px;padding:0.75rem 1rem;text-align:center;"><i class="fas fa-layer-group me-1"></i> Nivel</th>
+                                <th style="color:#fff;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.5px;padding:0.75rem 1rem;"><i class="fas fa-gift me-1"></i> Beneficio</th>
+                                <th style="color:#fff;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.5px;padding:0.75rem 1rem;text-align:center;"><i class="fas fa-file-alt me-1"></i> Nota Trabajo</th>
+                                <th style="color:#fff;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.5px;padding:0.75rem 1rem;text-align:center;"><i class="fas fa-graduation-cap me-1"></i> Beca Grado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="item, stat : ${estudiantesConBeneficio}"
+                                style="border-bottom:1px solid #f0fdf4;transition:background 0.15s;"
+                                onmouseover="this.style.background='#f0fdf4'" onmouseout="this.style.background=''">
+                                <td style="padding:0.75rem 1rem;font-size:0.8rem;color:#64748b;" th:text="${stat.count}">1</td>
+                                <td style="padding:0.75rem 1rem;font-size:0.85rem;font-weight:600;"
+                                    th:text="${item.estudiante.numeroDocumento}">—</td>
+                                <td style="padding:0.75rem 1rem;font-size:0.85rem;"
+                                    th:text="${item.estudiante.primerNombre + ' ' +
+                                              (item.estudiante.segundoNombre != null ? item.estudiante.segundoNombre + ' ' : '') +
+                                              item.estudiante.primerApellido +
+                                              (item.estudiante.segundoApellido != null ? ' ' + item.estudiante.segundoApellido : '')}">—</td>
+                                <td style="padding:0.75rem 1rem;font-size:0.83rem;" th:text="${item.programa}">—</td>
+                                <td style="padding:0.75rem 1rem;text-align:center;">
+                                    <span style="font-weight:800;font-size:1rem;color:#0e6030;"
+                                          th:text="${item.resultado.puntajeTotal}">—</span>
+                                </td>
+                                <td style="padding:0.75rem 1rem;text-align:center;">
+                                    <span style="display:inline-block;padding:0.2em 0.6em;border-radius:6px;font-size:0.72rem;font-weight:700;"
+                                          th:classappend="${#strings.containsIgnoreCase(item.resultado.puntajeNivel,'Superior')} ? 'niv-superior' :
+                                                          (${#strings.containsIgnoreCase(item.resultado.puntajeNivel,'Alto')} ? 'niv-alto' :
+                                                          (${#strings.containsIgnoreCase(item.resultado.puntajeNivel,'Medio')} ? 'niv-medio' : 'niv-default'))"
+                                          th:text="${item.resultado.puntajeNivel ?: '—'}">—</span>
+                                </td>
+                                <td style="padding:0.75rem 1rem;">
+                                    <span style="display:inline-block;background:#f0fdf4;border:1px solid #adf0c8;border-radius:8px;padding:0.3rem 0.65rem;font-size:0.78rem;font-weight:600;color:#0e6030;"
+                                          th:text="${item.resolucion.beneficio}">—</span>
+                                </td>
+                                <td style="padding:0.75rem 1rem;text-align:center;">
+                                    <span style="font-weight:700;font-size:0.95rem;"
+                                          th:style="${item.notaTrabajo == '5.0'} ? 'color:#16a34a;font-weight:800;' : 'color:#0e6030;'"
+                                          th:text="${item.notaTrabajo}">—</span>
+                                </td>
+                                <td style="padding:0.75rem 1rem;text-align:center;">
+                                    <span style="display:inline-block;padding:0.25em 0.7em;border-radius:8px;font-weight:700;font-size:0.85rem;"
+                                          th:style="${item.beca == '100%'} ? 'background:#16a34a;color:#fff;' :
+                                                     (${item.beca == '50%'} ? 'background:#0891b2;color:#fff;' :
+                                                     'background:#d97706;color:#fff;')"
+                                          th:text="${item.beca}">—</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Badge CSS inline for nivel -->
+        <style>
+            .niv-superior { background: #16a34a; color: #fff; }
+            .niv-alto     { background: #0e6030; color: #fff; }
+            .niv-medio    { background: #d97706; color: #fff; }
+            .niv-basico   { background: #dc2626; color: #fff; }
+            .niv-default  { background: #94a3b8; color: #fff; }
+        </style>
+    </div>
 </body>
 </html>
